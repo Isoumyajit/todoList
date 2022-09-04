@@ -1,28 +1,38 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
+import React, { useState } from 'react'
+import Button from 'react-bootstrap/Button'
+
 const Form = (props) => {
-  const [taskHeading, setTaskTitle] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
+  const [taskHeading, setTaskTitle] = useState('')
+  const [taskDescription, setTaskDescription] = useState('')
 
   // ** Here this Arrow funtion is used to handdle the change events for the TaskHeading field
   const handleChangeTask = (event) => {
-    const taskName = event.target.value;
-    setTaskTitle(taskName);
-  };
+    const taskName = event.target.value
+    setTaskTitle(taskName)
+  }
 
   // ** Here this Arrow funtion is used to handdle the change events for the TaskDescrption Field
   const handleChangeTaskDescription = (event) => {
-    const descr = event.target.value;
-    setTaskDescription(descr);
-  };
+    const descr = event.target.value
+    setTaskDescription(descr)
+  }
 
   const handleSave = () => {
-    let taskList = {};
-    taskList["Name"] = taskHeading;
-    taskList["Des"] = taskDescription;
-    props.saveTheTask(taskList);
-    props.toggle();
-  };
+    let taskList = {}
+    taskList['Name'] = taskHeading
+    taskList['Des'] = taskDescription
+    props.saveTheTask(taskList)
+    props.toggle()
+  }
+
+  // const handleUpdate = () => {
+  //   let taskList = {}
+  //   taskList['Name'] = taskHeading
+  //   taskList['Des'] = taskDescription
+  //   props.editTask(taskList)
+  //   props.toggle()
+  // }
+
   return (
     <>
       <div>
@@ -52,13 +62,15 @@ const Form = (props) => {
               onChange={handleChangeTaskDescription}
             />
           </div>
-          <Button class="btn btn-primary" onClick={handleSave}>
-            Create
-          </Button>
+          <div className="form-buttons">
+            <Button class="btn btn-primary bt-2" onClick={handleSave}>
+              Create
+            </Button>
+          </div>
         </form>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form

@@ -1,22 +1,73 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modals from "./Modals";
-import "../App.css";
+import React, { useState, useEffect } from 'react'
+import Button from 'react-bootstrap/Button'
+import Modals from './Modals'
+import Task from './Task'
+import '../App.css'
 
 const TodoList = () => {
-  const [modal, setModal] = useState(false);
-  const [taskList, setTaskList] = useState([]);
+  const colors = [
+    {
+      primaryColor: '#5D93E1',
+      secondaryColor: '#ECF3FC',
+    },
+    {
+      primaryColor: '#F9D288',
+      secondaryColor: '#FEFAF1',
+    },
+    {
+      primaryColor: '#5DC250',
+      secondaryColor: '#F2FAF1',
+    },
+    {
+      primaryColor: '#F48687',
+      secondaryColor: '#FDF1F1',
+    },
+    {
+      primaryColor: '#B964F7',
+      secondaryColor: '#F3F0FD',
+    },
+  ]
+  const [modal, setModal] = useState(false)
+  const [taskList, setTaskList] = useState([])
 
   const toggle = () => {
-    setModal(false);
-  };
+    setModal(!modal)
+  }
+
+  //  ** Using useEffect Hook to manage side-funtionalities like fetching values from localstorage
+  //  ** There is two parameters one is
+  // !callBack function
+  // !Optional Array
+
+  useEffect(() => {
+    let arr = localStorage.getItem('tasksList')
+    if (arr) {
+      let listItems = JSON.parse(arr)
+      setTaskList(listItems)
+    }
+  }, [])
 
   const saveTasks = (newTask) => {
-    let taskObjectList = taskList;
-    taskObjectList.push(newTask);
-    setTaskList(taskObjectList);
-    localStorage.setItem("tasksList", JSON.stringify(taskList));
-  };
+    let taskObjectList = taskList
+    taskObjectList.push(newTask)
+    setTaskList(taskObjectList)
+    localStorage.setItem('tasksList', JSON.stringify(taskList))
+  }
+
+  const handleDeleteEvent = (index) => {
+    let tempList = taskList
+    tempList.splice(index, 1)
+    localStorage.setItem('tasksList', JSON.stringify(tempList))
+    setTaskList(tempList)
+    window.location.reload()
+  }
+
+  const handleEditEvent = (index, newTask) => {
+    let tempList = taskList
+    tempList[index] = newTask
+    localStorage.setItem('tasksList', JSON.stringify(tempList))
+    setTaskList(tempList)
+  }
 
   return (
     <>
@@ -29,14 +80,28 @@ const TodoList = () => {
         </div>
       </div>
       <div className="tasks">
-        <Modals toggle={toggle} modal={modal} saveTask={saveTasks} />
+        <Modals
+          toggle={toggle}
+          modal={modal}
+          saveTask={saveTasks}
+          editTask={handleEditEvent}
+        />
       </div>
-      <div className="task-container">
-        {taskList.map((obj) => (
-          <li>{obj.Name}</li>
-        ))}
+      <div className="container-tasks-main">
+        <div className="task-container">
+          {taskList.map((obj, index) => (
+            <Task
+              taskObj={obj}
+              indexNo={index}
+              colors={colors}
+              deleteTask={handleDeleteEvent}
+              editTask={handleEditEvent}
+              state_of_modal={toggle}
+            />
+          ))}
+        </div>
       </div>
     </>
-  );
-};
-export default TodoList;
+  )
+}
+export default TodoList
