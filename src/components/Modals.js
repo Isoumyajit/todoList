@@ -1,12 +1,13 @@
-import React from "react";
-import Form from "./Form";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import React from 'react'
+import Form from './Form'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import EditModal from './EditModal'
 
 function Modals(props) {
-  return (
-    <div>
+  if (props.modal && !props.editModal)
+    return (
       <Modal isOpen={props.modal} toggle={props.toggle}>
-        <ModalHeader toggle={props.toggle}>Modal title</ModalHeader>
+        <ModalHeader toggle={props.toggle}>Create Task</ModalHeader>
         <ModalBody>
           <Form saveTheTask={props.saveTask} toggle={props.toggle} />
         </ModalBody>
@@ -16,8 +17,26 @@ function Modals(props) {
           </Button>
         </ModalFooter>
       </Modal>
-    </div>
-  );
+    )
+  if (props.editModal && !props.modal)
+    return (
+      <Modal isOpen={props.editModal} toggle={props.editToggle}>
+        <ModalHeader toggle={props.editToggle}>Update Task</ModalHeader>
+        <ModalBody>
+          <EditModal
+            index={props.index}
+            editTask={props.editEvent}
+            toggle={props.editToggle}
+            taskObj={props.taskObj}
+          />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="secondary" onClick={props.editToggle}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+    )
 }
 
-export default Modals;
+export default Modals
