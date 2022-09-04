@@ -64,7 +64,6 @@ const TodoList = () => {
 
   const handleEditEvent = (index, newTask) => {
     let tempList = taskList
-    let arr = {}
     tempList[index] = newTask
     localStorage.setItem('tasksList', JSON.stringify(tempList))
     setTaskList(tempList)
