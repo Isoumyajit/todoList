@@ -18,14 +18,14 @@ const Task = (props) => {
     <>
       <div className="note mr-5">
         <div
-          class="card-top"
+          className="card-top"
           style={{
             'background-color': props.colors[props.indexNo % 5].primaryColor,
           }}
         ></div>
         <div className="task-heading">
           <span
-            class="card-header"
+            className="card-header"
             style={{
               'background-color':
                 props.colors[props.indexNo % 5].secondaryColor,
@@ -35,7 +35,14 @@ const Task = (props) => {
             {taskHeading}
           </span>
         </div>
-        <p>{taskDescription}</p>
+        <div
+          className="task-description"
+          style={{
+            'background-color': props.colors[props.indexNo % 5].secondaryColor,
+          }}
+        >
+          <p>{taskDescription}</p>
+        </div>
         <div className="notes-footer">
           <p>Time created {props.indexNo}</p>
           <div className="functional-buttons">

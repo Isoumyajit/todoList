@@ -24,12 +24,20 @@
 }
 
 .card-header {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 1px 5px 1px 1px;
   max-width: 80px;
   height: 30px;
-  padding: 1px 1px !important;
+  padding: 2px 2px !important;
   text-align: center;
+  word-wrap: break-word;
+}
+.task-description {
+  margin: 1px 5px 1px 2px;
+  padding: 2px 2px !important;
+  height: 70px;
+  overflow-x: auto;
+  word-wrap: break-word;
+  border-radius: 5px;
 }
 .container-tasks-main {
   padding-top: 1rem;
@@ -47,7 +55,7 @@
   background-color: #f9f9c0;
   border-radius: 10px;
   padding: 1rem;
-  min-height: 120px;
+  min-height: 270px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
