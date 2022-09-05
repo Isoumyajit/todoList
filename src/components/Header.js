@@ -11,7 +11,7 @@ export class header extends Component {
             <Navbar.Brand href="#home">
               <img
                 alt=""
-                src="../../public/to-do-list.png"
+                src="to-do-list.png"
                 width="30"
                 height="30"
                 className="d-inline-block align-top"
