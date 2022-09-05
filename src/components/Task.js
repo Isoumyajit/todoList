@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-import React from 'react'
-import { FaPenSquare } from 'react-icons/fa'
-import { MdDeleteForever } from 'react-icons/md'
-=======
 import React, { useState } from 'react'
 import { FaPenSquare } from 'react-icons/fa'
 import { MdDeleteForever } from 'react-icons/md'
 import Modals from './Modals'
->>>>>>> EditButton
 
 const Task = (props) => {
   const [editmodal, seteditModal] = useState(false)
@@ -41,7 +35,9 @@ const Task = (props) => {
             {taskHeading}
           </span>
         </div>
-<<<<<<< HEAD
+<<<<<<<<< Temporary merge branch 1
+        <p>{taskDescription}</p>
+=========
         <div
           className="description-note"
           style={{
@@ -50,9 +46,7 @@ const Task = (props) => {
         >
           <p>{props.taskObj.Des}</p>
         </div>
-=======
-        <p>{taskDescription}</p>
->>>>>>> EditButton
+>>>>>>>>> Temporary merge branch 2
         <div className="notes-footer">
           {/* <p>Time created {props.indexNo}</p> */}
           <div className="functional-buttons">
