@@ -36,14 +36,13 @@ const Task = (props) => {
           </span>
         </div>
         <div
-          className="description-note"
+          className="task-description"
           style={{
             'background-color': props.colors[props.indexNo % 5].secondaryColor,
           }}
         >
           <p>{taskDescription}</p>
         </div>
-        {/* >>>>>>>>> Temporary merge branch 2 */}
         <div className="notes-footer">
           {/* <p>Time created {props.indexNo}</p> */}
           <div className="functional-buttons">
