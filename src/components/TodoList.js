@@ -2,9 +2,17 @@ import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modals from './Modals'
 import Task from './Task'
+import { AddTasks, getTasks } from '../services/Api'
 import '../App.css'
 
 const TodoList = () => {
+  const [modal, setModal] = useState(false)
+  const [taskList, setTaskList] = useState([])
+
+  const addTaskToDatabase = async (taskObj, userID) => {
+    console.log('yes coming in https')
+    AddTasks([taskObj, userID])
+  }
   const colors = [
     {
       primaryColor: '#5D93E1',
@@ -27,31 +35,33 @@ const TodoList = () => {
       secondaryColor: '#F3F0FD',
     },
   ]
-  const [modal, setModal] = useState(false)
-  const [taskList, setTaskList] = useState([])
 
   const toggle = () => {
     setModal(!modal)
   }
 
+  const getAllUsers = async () => {
+    let arr = await getTasks()
+    console.log(arr['data'])
+    if (arr['data']) {
+      setTaskList(arr['data'])
+    }
+    console.log(taskList)
+  }
   //  ** Using useEffect Hook to manage side-funtionalities like fetching values from localstorage
   //  ** There is two parameters one is
   // !callBack function
   // !Optional Array -- manage that this will run only once
-
   useEffect(() => {
-    let arr = localStorage.getItem('tasksList')
-    if (arr) {
-      let listItems = JSON.parse(arr)
-      setTaskList(listItems)
-    }
+    getAllUsers()
   }, [])
 
   const saveTasks = (newTask) => {
     let taskObjectList = taskList
     taskObjectList.push(newTask)
     setTaskList(taskObjectList)
-    localStorage.setItem('tasksList', JSON.stringify(taskList))
+    //localStorage.setItem('tasksList', JSON.stringify(taskList))
+    addTaskToDatabase(newTask, 'Soumyajit')
   }
 
   const handleDeleteEvent = (index) => {
