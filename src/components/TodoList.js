@@ -37,7 +37,7 @@ const TodoList = () => {
   //  ** Using useEffect Hook to manage side-funtionalities like fetching values from localstorage
   //  ** There is two parameters one is
   // !callBack function
-  // !Optional Array
+  // !Optional Array -- manage that this will run only once
 
   useEffect(() => {
     let arr = localStorage.getItem('tasksList')
@@ -67,6 +67,7 @@ const TodoList = () => {
     tempList[index] = newTask
     localStorage.setItem('tasksList', JSON.stringify(tempList))
     setTaskList(tempList)
+    window.location.reload()
   }
 
   return (
@@ -80,12 +81,7 @@ const TodoList = () => {
         </div>
       </div>
       <div className="tasks">
-        <Modals
-          toggle={toggle}
-          modal={modal}
-          saveTask={saveTasks}
-          editTask={handleEditEvent}
-        />
+        <Modals toggle={toggle} modal={modal} saveTask={saveTasks} />
       </div>
       <div className="container-tasks-main">
         <div className="task-container">
@@ -95,8 +91,7 @@ const TodoList = () => {
               indexNo={index}
               colors={colors}
               deleteTask={handleDeleteEvent}
-              editTask={handleEditEvent}
-              state_of_modal={toggle}
+              handleEditEvent={handleEditEvent}
             />
           ))}
         </div>
