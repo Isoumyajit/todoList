@@ -10,7 +10,7 @@ const TodoList = () => {
   const [taskList, setTaskList] = useState([])
 
   const updateTasks = async (index, newtask) => {
-    await updateTask([index, newtask, 'Soumyajit'])
+    await updateTask([taskList[index], newtask, 'Soumyajit'])
     await getAllTasks()
   }
   const getAllTasks = async () => {

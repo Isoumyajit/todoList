@@ -6,7 +6,6 @@ function EditModal(props) {
   const [taskDescription, setTaskDescription] = useState('')
 
   const editEventHandler = () => {
-    // console.log(props.index, props.taskObj.taskName, props.taskObj.taskDescription)
     let newTask = {}
     newTask['Name'] = taskHeading
     newTask['Des'] = taskDescription
