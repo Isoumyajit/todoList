@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { FaPenSquare } from 'react-icons/fa'
-import { MdDeleteForever } from 'react-icons/md'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+// import { faTrash } from '@fortawesome/fontawesome-free-solid'
 import Modals from './Modals'
 
 const Task = (props) => {
@@ -29,7 +30,6 @@ const Task = (props) => {
             style={{
               'background-color':
                 props.colors[props.indexNo % 5].secondaryColor,
-              'border-radius': '5px',
             }}
           >
             {props.taskObj.taskName}
@@ -46,20 +46,30 @@ const Task = (props) => {
         <div className="notes-footer">
           {/* <p>Time created {props.indexNo}</p> */}
           <div className="functional-buttons">
-            <FaPenSquare
-              className="edit-button mr-3"
-              size="1.2rem"
-              cursor="pointer"
-              style={{ color: props.colors[props.indexNo % 5].primaryColor }}
-              onClick={() => seteditModal(true)}
-            />
-            <MdDeleteForever
-              className="delete-button mr-3"
-              size="1.2rem"
-              cursor="pointer"
-              onClick={handleDelete}
-              style={{ color: props.colors[props.indexNo % 5].primaryColor }}
-            />
+            <div className="edit-button">
+              <FontAwesomeIcon
+                icon={faEdit}
+                size="lg"
+                className="edit-button mr-3"
+                cursor="pointer"
+                style={{
+                  color: props.colors[props.indexNo % 5].primaryColor,
+                }}
+                onClick={() => seteditModal(true)}
+              />
+            </div>
+            <div className="delete-button">
+              <FontAwesomeIcon
+                icon={faTrashCan}
+                size="lg"
+                className="delete-button mr-3"
+                style={{
+                  color: props.colors[props.indexNo % 5].primaryColor,
+                }}
+                cursor="pointer"
+                onClick={handleDelete}
+              />
+            </div>
           </div>
         </div>
       </div>
