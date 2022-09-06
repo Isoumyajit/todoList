@@ -2,9 +2,32 @@ import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modals from './Modals'
 import Task from './Task'
+import { AddTasks, getTasks, updateTask, deleteTheTask } from '../services/Api'
 import '../App.css'
 
 const TodoList = () => {
+  const [modal, setModal] = useState(false)
+  const [taskList, setTaskList] = useState([])
+
+  const updateTasks = async (index, newtask) => {
+    await updateTask([taskList[index], newtask, 'Soumyajit'])
+    await getAllTasks()
+  }
+  const getAllTasks = async () => {
+    let arr = await getTasks()
+    if (arr) {
+      setTaskList(arr['data'])
+    }
+  }
+  const deleteTask = async (index) => {
+    console.log(taskList[index])
+    await deleteTheTask([taskList[index], 'Soumyajit'])
+    await getAllTasks()
+  }
+  const addTaskToDatabase = async (taskObj, userID) => {
+    await AddTasks([taskObj, userID])
+    await getAllTasks()
+  }
   const colors = [
     {
       primaryColor: '#5D93E1',
@@ -27,47 +50,28 @@ const TodoList = () => {
       secondaryColor: '#F3F0FD',
     },
   ]
-  const [modal, setModal] = useState(false)
-  const [taskList, setTaskList] = useState([])
 
   const toggle = () => {
     setModal(!modal)
   }
-
   //  ** Using useEffect Hook to manage side-funtionalities like fetching values from localstorage
   //  ** There is two parameters one is
   // !callBack function
   // !Optional Array -- manage that this will run only once
 
   useEffect(() => {
-    let arr = localStorage.getItem('tasksList')
-    if (arr) {
-      let listItems = JSON.parse(arr)
-      setTaskList(listItems)
-    }
+    getAllTasks()
   }, [])
 
   const saveTasks = (newTask) => {
-    let taskObjectList = taskList
-    taskObjectList.push(newTask)
-    setTaskList(taskObjectList)
-    localStorage.setItem('tasksList', JSON.stringify(taskList))
+    addTaskToDatabase(newTask, 'Soumyajit')
   }
-
   const handleDeleteEvent = (index) => {
-    let tempList = taskList
-    tempList.splice(index, 1)
-    localStorage.setItem('tasksList', JSON.stringify(tempList))
-    setTaskList(tempList)
-    window.location.reload()
+    deleteTask(index)
   }
 
   const handleEditEvent = (index, newTask) => {
-    let tempList = taskList
-    tempList[index] = newTask
-    localStorage.setItem('tasksList', JSON.stringify(tempList))
-    setTaskList(tempList)
-    window.location.reload()
+    updateTasks(index, newTask)
   }
 
   return (

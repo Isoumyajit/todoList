@@ -5,8 +5,8 @@ import Modals from './Modals'
 
 const Task = (props) => {
   const [editmodal, seteditModal] = useState(false)
-  const [taskHeading] = useState(props.taskObj.Name)
-  const [taskDescription] = useState(props.taskObj.Des)
+  const [taskHeading] = useState(props.taskObj.taskName)
+  const [taskDescription] = useState(props.taskObj.taskDescription)
 
   const toggle = () => {
     seteditModal(!editmodal)
