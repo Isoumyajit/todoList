@@ -9,20 +9,34 @@ const TodoList = () => {
   const [modal, setModal] = useState(false)
   const [taskList, setTaskList] = useState([])
 
-  const updateTasks = async (index, newtask) => {
-    await updateTask([taskList[index], newtask, 'Soumyajit'])
-    await getAllTasks()
+  const updateTasks = async (id, newtask) => {
+    await updateTask([id, newtask, 'Soumyajit'])
+    setTaskList((p) => {
+      let arr = [...p]
+
+      arr.forEach((data, i) => {
+        if (data._id === id) {
+          arr[i] = {
+            ...data,
+            ...newtask,
+          }
+        }
+      })
+      console.log('Arr: ', arr)
+      return arr
+    })
   }
   const getAllTasks = async () => {
+    setTaskList([])
     let arr = await getTasks()
     if (arr) {
-      setTaskList(arr['data'])
+      console.log('Get All Task: ', arr)
+      setTaskList([...arr['data']])
     }
   }
-  const deleteTask = async (index) => {
-    console.log(taskList[index])
-    await deleteTheTask([taskList[index], 'Soumyajit'])
-    await getAllTasks()
+  const deleteTask = async (id) => {
+    console.log(taskList[id])
+    await deleteTheTask([id, 'Soumyajit'])
   }
   const addTaskToDatabase = async (taskObj, userID) => {
     await AddTasks([taskObj, userID])
@@ -66,12 +80,12 @@ const TodoList = () => {
   const saveTasks = (newTask) => {
     addTaskToDatabase(newTask, 'Soumyajit')
   }
-  const handleDeleteEvent = (index) => {
-    deleteTask(index)
+  const handleDeleteEvent = (id) => {
+    deleteTask(id)
   }
 
-  const handleEditEvent = (index, newTask) => {
-    updateTasks(index, newTask)
+  const handleEditEvent = (id, newTask) => {
+    updateTasks(id, newTask)
   }
 
   return (
@@ -89,15 +103,17 @@ const TodoList = () => {
       </div>
       <div className="container-tasks-main">
         <div className="task-container">
-          {taskList.map((obj, index) => (
-            <Task
-              taskObj={obj}
-              indexNo={index}
-              colors={colors}
-              deleteTask={handleDeleteEvent}
-              handleEditEvent={handleEditEvent}
-            />
-          ))}
+          {taskList.length > 0 &&
+            taskList.map((obj, index) => (
+              <Task
+                key={obj._id}
+                taskObj={obj}
+                indexNo={index}
+                colors={colors}
+                deleteTask={handleDeleteEvent}
+                handleEditEvent={handleEditEvent}
+              />
+            ))}
         </div>
       </div>
     </>

@@ -5,14 +5,14 @@ import Modals from './Modals'
 
 const Task = (props) => {
   const [editmodal, seteditModal] = useState(false)
-  const [taskHeading] = useState(props.taskObj.taskName)
-  const [taskDescription] = useState(props.taskObj.taskDescription)
+  // const [taskHeading] = useState(props.taskObj.taskName)
+  // const [taskDescription] = useState(props.taskObj.taskDescription)
 
   const toggle = () => {
     seteditModal(!editmodal)
   }
   const handleDelete = () => {
-    props.deleteTask(props.indexNo)
+    props.deleteTask(props.taskObj._id)
   }
   return (
     <>
@@ -32,7 +32,7 @@ const Task = (props) => {
               'border-radius': '5px',
             }}
           >
-            {taskHeading}
+            {props.taskObj.taskName}
           </span>
         </div>
         <div
@@ -41,7 +41,7 @@ const Task = (props) => {
             'background-color': props.colors[props.indexNo % 5].secondaryColor,
           }}
         >
-          <p>{taskDescription}</p>
+          <p>{props.taskObj.taskDescription}</p>
         </div>
         <div className="notes-footer">
           {/* <p>Time created {props.indexNo}</p> */}

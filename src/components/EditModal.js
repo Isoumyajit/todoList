@@ -7,9 +7,9 @@ function EditModal(props) {
 
   const editEventHandler = () => {
     let newTask = {}
-    newTask['Name'] = taskHeading
-    newTask['Des'] = taskDescription
-    props.editTask(props.index, newTask)
+    newTask['taskName'] = taskHeading
+    newTask['taskDescription'] = taskDescription
+    props.editTask(props.taskObj._id, newTask)
     props.toggle()
   }
   // ** Here this Arrow funtion is used to handdle the change events for the TaskHeading field
