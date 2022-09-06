@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { FaPenSquare } from 'react-icons/fa'
-import { MdDeleteForever } from 'react-icons/md'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Modals from './Modals'
 
 const Task = (props) => {
@@ -29,7 +28,6 @@ const Task = (props) => {
             style={{
               'background-color':
                 props.colors[props.indexNo % 5].secondaryColor,
-              'border-radius': '5px',
             }}
           >
             {taskHeading}
@@ -46,20 +44,7 @@ const Task = (props) => {
         <div className="notes-footer">
           <p>Time created {props.indexNo}</p>
           <div className="functional-buttons">
-            <FaPenSquare
-              className="edit-button mr-3"
-              size="1.2rem"
-              cursor="pointer"
-              style={{ color: props.colors[props.indexNo % 5].primaryColor }}
-              onClick={() => seteditModal(true)}
-            />
-            <MdDeleteForever
-              className="delete-button mr-3"
-              size="1.2rem"
-              cursor="pointer"
-              onClick={handleDelete}
-              style={{ color: props.colors[props.indexNo % 5].primaryColor }}
-            />
+            <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
           </div>
         </div>
       </div>
