@@ -15,7 +15,14 @@ const Task = (props) => {
   }
   return (
     <>
-      <div className="note mr-5">
+      <div
+        className="note mr-5"
+        style={{
+          border: '2px solid' + props.colors[props.indexNo % 5].primaryColor,
+          backgroundColor:
+            props.colors[props.indexNo % 5].primaryColorContainer,
+        }}
+      >
         <div
           className="card-top"
           style={{
@@ -28,6 +35,7 @@ const Task = (props) => {
             style={{
               'background-color':
                 props.colors[props.indexNo % 5].secondaryColor,
+              'border-radius': '5px',
             }}
           >
             {props.taskObj.taskName}

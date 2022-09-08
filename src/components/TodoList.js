@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Button from 'react-bootstrap/Button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import Modals from './Modals'
 import Task from './Task'
 import { AddTasks, getTasks, updateTask, deleteTheTask } from '../services/Api'
@@ -48,22 +49,27 @@ const TodoList = () => {
   }
   const colors = [
     {
+      primaryColorContainer: '#9B59B6',
       primaryColor: '#5D93E1',
       secondaryColor: '#ECF3FC',
     },
     {
+      primaryColorContainer: '#2ECC71',
       primaryColor: '#F9D288',
       secondaryColor: '#FEFAF1',
     },
     {
+      primaryColorContainer: '#1ABC9C',
       primaryColor: '#5DC250',
       secondaryColor: '#F2FAF1',
     },
     {
+      primaryColorContainer: '#FDA4AF',
       primaryColor: '#F48687',
       secondaryColor: '#FDF1F1',
     },
     {
+      primaryColorContainer: '#F1C40F',
       primaryColor: '#B964F7',
       secondaryColor: '#F3F0FD',
     },
@@ -96,11 +102,16 @@ const TodoList = () => {
   return (
     <>
       <div className="upper-label text-center">
-        <h3 className="subject-heading">Todo List</h3>
-        <div className="create-task-button">
-          <Button variant="primary" onClick={() => setModal(true)}>
-            Create your Tasks
-          </Button>
+        <div className="upper-section">
+          <div className="search-bar"></div>
+          <div className="create-task-button">
+            <FontAwesomeIcon
+              type="button"
+              icon={faPlus}
+              size="lg"
+              onClick={() => setModal(true)}
+            />
+          </div>
         </div>
       </div>
       <div className="tasks">
