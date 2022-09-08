@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-// import { faTrash } from '@fortawesome/fontawesome-free-solid'
 import Modals from './Modals'
 
 const Task = (props) => {
@@ -17,7 +16,14 @@ const Task = (props) => {
   }
   return (
     <>
-      <div className="note mr-5">
+      <div
+        className="note mr-5"
+        style={{
+          border: '2px solid' + props.colors[props.indexNo % 5].primaryColor,
+          backgroundColor:
+            props.colors[props.indexNo % 5].primaryColorContainer,
+        }}
+      >
         <div
           className="card-top"
           style={{
@@ -30,6 +36,7 @@ const Task = (props) => {
             style={{
               'background-color':
                 props.colors[props.indexNo % 5].secondaryColor,
+              'border-radius': '5px',
             }}
           >
             {taskHeading}

@@ -25,14 +25,10 @@
 }
 
 .card-header {
-  margin: 1px 5px 1px 1px;
-  max-width: 80px;
-  height: 40px;
-  padding: 1px 1px !important;
+  padding: 3px 3px !important;
   text-align: center;
   word-wrap: break-word;
   border-radius: 10px;
-  border: 2px rgb(46, 42, 42);
 }
 .task-description {
   margin: 1px 0.5px 1px 2px;
@@ -56,7 +52,6 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 .note {
-  background-color: #fb8e35;
   border-radius: 10px;
   padding: 1rem;
   min-height: 270px;
