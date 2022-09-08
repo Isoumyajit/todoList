@@ -1,19 +1,17 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-// import { faTrash } from '@fortawesome/fontawesome-free-solid'
 import Modals from './Modals'
 
 const Task = (props) => {
   const [editmodal, seteditModal] = useState(false)
-  // const [taskHeading] = useState(props.taskObj.taskName)
-  // const [taskDescription] = useState(props.taskObj.taskDescription)
 
   const toggle = () => {
     seteditModal(!editmodal)
   }
   const handleDelete = () => {
-    props.deleteTask(props.taskObj._id)
+    console.log(props.taskObj)
+    props.deleteTask(props)
   }
   return (
     <>

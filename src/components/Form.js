@@ -25,14 +25,6 @@ const Form = (props) => {
     props.toggle()
   }
 
-  // const handleUpdate = () => {
-  //   let taskList = {}
-  //   taskList['Name'] = taskHeading
-  //   taskList['Des'] = taskDescription
-  //   props.editTask(taskList)
-  //   props.toggle()
-  // }
-
   return (
     <>
       <div>

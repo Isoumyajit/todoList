@@ -30,17 +30,21 @@ const TodoList = () => {
     setTaskList([])
     let arr = await getTasks()
     if (arr) {
-      console.log('Get All Task: ', arr)
       setTaskList([...arr['data']])
     }
   }
-  const deleteTask = async (id) => {
-    console.log(taskList[id])
-    await deleteTheTask([id, 'Soumyajit'])
+  const deleteTask = async (object) => {
+    if (deleteTheTask([object.taskObj._id])) {
+      setTaskList((p) => {
+        let arr = [...p]
+        arr.splice(object.indexNo, 1)
+        return arr
+      })
+    }
   }
   const addTaskToDatabase = async (taskObj, userID) => {
     await AddTasks([taskObj, userID])
-    await getAllTasks()
+    getAllTasks()
   }
   const colors = [
     {
@@ -79,6 +83,7 @@ const TodoList = () => {
 
   const saveTasks = (newTask) => {
     addTaskToDatabase(newTask, 'Soumyajit')
+    // getAllTasks()
   }
   const handleDeleteEvent = (id) => {
     deleteTask(id)
