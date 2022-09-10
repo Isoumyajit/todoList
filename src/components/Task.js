@@ -1,24 +1,24 @@
-import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import Modals from './Modals'
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import Modals from "./Modals";
 
 const Task = (props) => {
-  const [editmodal, seteditModal] = useState(false)
+  const [editmodal, seteditModal] = useState(false);
 
   const toggle = () => {
-    seteditModal(!editmodal)
-  }
+    seteditModal(!editmodal);
+  };
   const handleDelete = () => {
-    console.log(props.taskObj)
-    props.deleteTask(props)
-  }
+    console.log(props.taskObj);
+    props.deleteTask(props);
+  };
   return (
     <>
       <div
         className="note mr-5"
         style={{
-          border: '2px solid' + props.colors[props.indexNo % 5].primaryColor,
+          border: "2px solid" + props.colors[props.indexNo % 5].primaryColor,
           backgroundColor:
             props.colors[props.indexNo % 5].primaryColorContainer,
         }}
@@ -26,16 +26,15 @@ const Task = (props) => {
         <div
           className="card-top"
           style={{
-            'background-color': props.colors[props.indexNo % 5].primaryColor,
+            "background-color": props.colors[props.indexNo % 5].primaryColor,
           }}
         ></div>
         <div className="task-heading">
           <span
             className="card-header"
             style={{
-              'background-color':
-                props.colors[props.indexNo % 5].secondaryColor,
-              'border-radius': '5px',
+              "background-color": "#fff",
+              "border-radius": "5px",
             }}
           >
             {props.taskObj.taskName}
@@ -44,7 +43,7 @@ const Task = (props) => {
         <div
           className="task-description"
           style={{
-            'background-color': props.colors[props.indexNo % 5].secondaryColor,
+            "background-color": "#fff",
           }}
         >
           <p>{props.taskObj.taskDescription}</p>
@@ -87,7 +86,7 @@ const Task = (props) => {
         editEvent={props.handleEditEvent}
       />
     </>
-  )
-}
+  );
+};
 
-export default Task
+export default Task;

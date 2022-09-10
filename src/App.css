@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap");
+
+* {
+  font-family: "Dosis", sans-serif;
+}
 .upper-label {
   width: 100%;
   height: 150px;
@@ -6,6 +11,12 @@
   padding: 20px 20px 20px 20px;
 }
 
+.filtrationOption {
+  position: relative;
+  padding: 2px 2px !important;
+  margin: 5px 5px 5px 5px !important;
+  box-shadow: 10 20 0.5 0.1 rgb(46, 42, 42);
+}
 .subject-heading {
   font-weight: bold;
   margin-top: 10px;
@@ -88,7 +99,7 @@
 /* ** FORM ERROR MESSAGES CSS ** */
 .formErrors {
   color: red;
-  font-size: 10px;
+  font-size: 12px;
   padding: 2px !important;
 }
 /* ** ERROR MESSAGES CSS ENDS HERE **  */ ;
