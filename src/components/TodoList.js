@@ -5,7 +5,6 @@ import Modals from "./Modals";
 import Task from "./Task";
 import { AddTasks, getTasks, updateTask, deleteTheTask } from "../services/Api";
 import "../App.css";
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
