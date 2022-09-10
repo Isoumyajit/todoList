@@ -84,3 +84,11 @@
   font-weight: bold;
   color: white;
 }
+
+/* ** FORM ERROR MESSAGES CSS ** */
+.formErrors {
+  color: red;
+  font-size: 10px;
+  padding: 2px !important;
+}
+/* ** ERROR MESSAGES CSS ENDS HERE **  */ ;
