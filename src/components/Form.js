@@ -119,7 +119,6 @@ const Form = (props) => {
               ""
             )}
           </div>
-
           <div class="mb-3">
             <label for="Task-status" class="form-label">
               Status

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faCheckDouble } from "@fortawesome/free-solid-svg-icons";
 import Modals from "./Modals";
+import "../CSS/Completed-cards.css";
 
 const Task = (props) => {
   const [editmodal, seteditModal] = useState(false);
@@ -20,9 +22,29 @@ const Task = (props) => {
         style={{
           border: "2px solid" + props.colors[props.indexNo % 5].primaryColor,
           backgroundColor:
-            props.colors[props.indexNo % 5].primaryColorContainer,
+            props.taskObj.taskStatus === "Completed"
+              ? "#34515e"
+              : props.colors[props.indexNo % 5].primaryColorContainer,
+          textDecoration:
+            props.taskObj.taskStatus === "Completed" ? "line-through" : "none",
+          filter:
+            props.taskObj.taskStatus === "Completed"
+              ? "blur(0.2px)"
+              : "blur(0)",
         }}
       >
+        {props.taskObj.taskStatus === "Completed" ? (
+          <div className="green-tick">
+            <FontAwesomeIcon
+              icon={faCheckDouble}
+              size="lg"
+              style={{ color: "green", margin: "5px !important" }}
+            />
+            <label style={{ color: "#fff" }}>Completed</label>
+          </div>
+        ) : (
+          ""
+        )}
         <div
           className="card-top"
           style={{
@@ -49,7 +71,6 @@ const Task = (props) => {
           <p>{props.taskObj.taskDescription}</p>
         </div>
         <div className="notes-footer">
-          {/* <p>Time created {props.indexNo}</p> */}
           <div className="functional-buttons">
             <div className="edit-button">
               <FontAwesomeIcon
