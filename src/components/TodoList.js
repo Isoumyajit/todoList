@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import Modals from "./Modals";
-import Task from "./Task";
-import { AddTasks, getTasks, updateTask, deleteTheTask } from "../services/Api";
-import "../App.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
+import React, { useEffect, useState } from "react";
+import "../App.css";
+import { AddTasks, deleteTheTask, getTasks, updateTask } from "../services/Api";
+import Modals from "./Modals";
+import Task from "./Task";
 
 // Import Section Ends here
 
@@ -148,6 +148,7 @@ const TodoList = () => {
       </div>
       <div className="container-tasks-main">
         <div className="task-container">
+          {/* {console.log(taskList)} */}
           {taskList.length > 0 &&
             taskList.map((obj, index) => (
               <Task
