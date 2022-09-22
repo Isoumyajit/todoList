@@ -1,0 +1,37 @@
+/* // Pen CSS only */
+.loader-pencil-content {
+  align-items: center;
+  display: flex;
+  height: 40vh;
+  justify-content: center;
+}
+
+.btn {
+  align-items: center;
+  background: #93e2cb;
+  border-radius: 4px;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  padding: 2rem;
+  width: 180px;
+}
+
+/* // loader CSS */
+svg#loader-pencil {
+  fill: #3a846e;
+  width: 100px;
+}
+
+#line {
+  animation: linePencil 0.8s infinite linear;
+}
+
+@keyframes linePencil {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-150px);
+  }
+}

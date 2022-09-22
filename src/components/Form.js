@@ -4,13 +4,18 @@ import { FormControl } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 const Form = (props) => {
   const [taskHeading, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [error, setError] = useState(false);
   const statusList = ["Completed", "Incomplete"];
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("Incomplete");
+  const [time, setTime] = useState(null);
 
   // TODO : Trying to make a input object to make it simple playing with inputs
   // const [values, setFormValues] = useState({
@@ -120,10 +125,16 @@ const Form = (props) => {
             )}
           </div>
           <div class="mb-3">
-            <label for="Task-status" class="form-label">
-              Status
-            </label>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 110 }}>
+            <label for="Task-status" class="form-label"></label>
+            <FormControl
+              variant="standard"
+              sx={{ m: 1, minWidth: 110 }}
+              style={{
+                display: "flex",
+                "flex-direction": "row",
+                justifyContent: "space-between",
+              }}
+            >
               <InputLabel id="demo-simple-select-standard-label">
                 Status
               </InputLabel>
@@ -138,6 +149,16 @@ const Form = (props) => {
                   <MenuItem value={st}>{st}</MenuItem>
                 ))}
               </Select>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimePicker
+                  label="Select Time"
+                  value={time}
+                  onChange={(newValue) => {
+                    setTime(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
             </FormControl>
             {error && status.length === 0 ? (
               <div className="formErrors">

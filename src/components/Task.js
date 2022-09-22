@@ -1,62 +1,66 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { faCheckDouble } from "@fortawesome/free-solid-svg-icons";
-import Modals from "./Modals";
-import "../CSS/Completed-cards.css";
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faCheckDouble } from '@fortawesome/free-solid-svg-icons'
+import Modals from './Modals'
 
 const Task = (props) => {
-  const [editmodal, seteditModal] = useState(false);
+  const [editmodal, seteditModal] = useState(false)
 
   const toggle = () => {
-    seteditModal(!editmodal);
-  };
+    seteditModal(!editmodal)
+  }
   const handleDelete = () => {
-    console.log(props.taskObj);
-    props.deleteTask(props);
-  };
+    console.log(props.taskObj)
+    props.deleteTask(props)
+  }
   return (
     <>
       <div
         className="note mr-5"
         style={{
-          border: "2px solid" + props.colors[props.indexNo % 5].primaryColor,
+          border: '2px solid' + props.colors[props.indexNo % 5].primaryColor,
           backgroundColor:
-            props.taskObj.taskStatus === "Completed"
-              ? "#34515e"
+            props.taskObj.taskStatus === 'Completed'
+              ? '#4f5b62'
               : props.colors[props.indexNo % 5].primaryColorContainer,
           textDecoration:
-            props.taskObj.taskStatus === "Completed" ? "line-through" : "none",
+            props.taskObj.taskStatus === 'Completed' ? 'line-through' : 'none',
           filter:
-            props.taskObj.taskStatus === "Completed"
-              ? "blur(0.2px)"
-              : "blur(0)",
+            props.taskObj.taskStatus === 'Completed'
+              ? 'blur(0.2px)'
+              : 'blur(0)',
         }}
       >
-        {props.taskObj.taskStatus === "Completed" ? (
+        {props.taskObj.taskStatus === 'Completed' ? (
           <div className="green-tick">
             <FontAwesomeIcon
               icon={faCheckDouble}
               size="lg"
-              style={{ color: "green", margin: "5px !important" }}
+              style={{ color: '#00B8A3', padding: '5px !important' }}
             />
-            <label style={{ color: "#fff" }}>Completed</label>
+            <div className="completeMessageDivStyle">
+              <label style={{ color: '#fff' }}> Completed</label>{' '}
+            </div>
           </div>
         ) : (
-          ""
+          ''
         )}
         <div
           className="card-top"
           style={{
-            "background-color": props.colors[props.indexNo % 5].primaryColor,
+            'background-color':
+              props.taskObj.taskStatus === 'Completed'
+                ? '#00e676'
+                : props.colors[props.indexNo % 5].primaryColor,
           }}
         ></div>
         <div className="task-heading">
           <span
             className="card-header"
             style={{
-              "background-color": "#fff",
-              "border-radius": "5px",
+              'background-color': '#fff',
+              'border-radius': '5px',
             }}
           >
             {props.taskObj.taskName}
@@ -65,7 +69,7 @@ const Task = (props) => {
         <div
           className="task-description"
           style={{
-            "background-color": "#fff",
+            'background-color': '#fff',
           }}
         >
           <p>{props.taskObj.taskDescription}</p>
@@ -107,7 +111,7 @@ const Task = (props) => {
         editEvent={props.handleEditEvent}
       />
     </>
-  );
-};
+  )
+}
 
-export default Task;
+export default Task

@@ -4,6 +4,10 @@ import { FormControl } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 function EditModal(props) {
   const [taskHeading, setTaskTitle] = useState("");
@@ -11,6 +15,7 @@ function EditModal(props) {
   const [errors, setErrors] = useState(false);
   const [status, setStatus] = useState("");
   const statusList = ["Completed", "Incomplete"];
+  const [time, setTime] = useState(null);
 
   const validateForm = () => {
     if (
@@ -105,10 +110,17 @@ function EditModal(props) {
             )}
           </div>
           <div class="mb-3">
-            <label for="Task-status" class="form-label">
-              Status
-            </label>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 110 }}>
+            <label for="Task-status" class="form-label"></label>
+            <FormControl
+              variant="standard"
+              sx={{ m: 1, minWidth: 110 }}
+              style={{
+                display: "flex",
+                "flex-direction": "row",
+                position: "relative",
+                justifyContent: "space-between",
+              }}
+            >
               <InputLabel id="demo-simple-select-standard-label">
                 Status
               </InputLabel>
@@ -123,7 +135,18 @@ function EditModal(props) {
                   <MenuItem value={st}>{st}</MenuItem>
                 ))}
               </Select>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimePicker
+                  label="Select Time"
+                  value={time}
+                  onChange={(newValue) => {
+                    setTime(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
             </FormControl>
+
             {errors && status.length === 0 ? (
               <div className="formErrors">
                 <label>Status cann't be empty </label>

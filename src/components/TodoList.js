@@ -9,20 +9,23 @@ import "../App.css";
 import { AddTasks, deleteTheTask, getTasks, updateTask } from "../services/Api";
 import Modals from "./Modals";
 import Task from "./Task";
+import LoadingScreen from "./LoadingScreen";
 
 // Import Section Ends here
 
 const TodoList = () => {
   const [status, setStatus] = React.useState("");
-  const dropdownitems = ["Completed", "To Do", "Incomplete"];
+  const dropdownitems = ["All", "Completed", "Incomplete"];
+  const [allTask, setAllTasks] = useState([]);
   const [modal, setModal] = useState(false);
+  // const [loading, setLoadingStatus] = useState(false);
   const [taskList, setTaskList] = useState([]);
 
   const updateTasks = async (id, newtask) => {
     await updateTask([id, newtask, "Soumyajit"]);
-    setTaskList((p) => {
-      let arr = [...p];
 
+    setAllTasks((p) => {
+      let arr = [...p];
       arr.forEach((data, i) => {
         if (data._id === id) {
           arr[i] = {
@@ -31,16 +34,25 @@ const TodoList = () => {
           };
         }
       });
-      console.log("Arr: ", arr);
+      arr.sort((a, b) => (b.taskStatus > a.taskStatus ? 1 : -1));
       return arr;
     });
+    setTaskList(allTask);
   };
+
   const getAllTasks = async () => {
     setTaskList([]);
-    let arr = await getTasks();
+    let arr = [];
+    arr = await getTasks();
+
     if (arr) {
+      console.log(arr);
       setTaskList([...arr["data"]]);
+      setAllTasks([...arr["data"]]);
     }
+    // else {
+    //   <LoadingScreen />;
+    // }
   };
   const deleteTask = async (object) => {
     if (deleteTheTask([object.taskObj._id])) {
@@ -91,13 +103,14 @@ const TodoList = () => {
   // !callBack function
   // !Optional Array -- manage that this will run only once
 
+  /* This is a React Hook that is called when the component is mounted. */
   useEffect(() => {
     getAllTasks();
+    setStatus("All");
   }, []);
 
   const saveTasks = (newTask) => {
     addTaskToDatabase(newTask, "Soumyajit");
-    // getAllTasks()
   };
   const handleDeleteEvent = (id) => {
     deleteTask(id);
@@ -105,24 +118,41 @@ const TodoList = () => {
 
   const handleEditEvent = (id, newTask) => {
     updateTasks(id, newTask);
+    console.log(taskList);
   };
+
+  useEffect(() => {
+    const showSelectedTasks = (target) => {
+      let arr = [];
+      allTask.forEach((task) => {
+        if (task["taskStatus"]) {
+          if (task["taskStatus"] === target) {
+            arr.push(task);
+          }
+        }
+      });
+      if (target === "Completed") {
+        setTaskList(arr);
+      } else if (target === "Incomplete") {
+        setTaskList(arr);
+      } else setTaskList(allTask);
+    };
+    showSelectedTasks(status);
+  }, [allTask, status]);
 
   const handleChangeDropwDown = (event) => {
     setStatus(event.target.value);
   };
   return (
     <>
-      <div className="upper-label ">
+      <div className="upper-label">
         <div className="upper-section text-center">
-          <div className="search-bar"></div>
-          <div className="create-task-button">
-            <FontAwesomeIcon
-              type="button"
-              icon={faPlus}
-              size="lg"
-              onClick={() => setModal(true)}
-            />
-          </div>
+          <FontAwesomeIcon
+            type="button"
+            icon={faPlus}
+            size="lg"
+            onClick={() => setModal(true)}
+          />
         </div>
         <div className="filtrationOption">
           <FormControl variant="standard" sx={{ m: 1, minWidth: 110 }}>
@@ -143,23 +173,27 @@ const TodoList = () => {
           </FormControl>
         </div>
       </div>
-      <div className="tasks">
-        <Modals toggle={toggle} modal={modal} saveTask={saveTasks} />
-      </div>
-      <div className="container-tasks-main">
-        <div className="task-container">
-          {/* {console.log(taskList)} */}
-          {taskList.length > 0 &&
-            taskList.map((obj, index) => (
-              <Task
-                key={obj._id}
-                taskObj={obj}
-                indexNo={index}
-                colors={colors}
-                deleteTask={handleDeleteEvent}
-                handleEditEvent={handleEditEvent}
-              />
-            ))}
+      <div className="data-container">
+        <div className="tasks">
+          <Modals toggle={toggle} modal={modal} saveTask={saveTasks} />
+        </div>
+        <div className="container-tasks-main">
+          <div className="task-container">
+            {taskList.length < 1 ? (
+              <LoadingScreen />
+            ) : (
+              taskList.map((obj, index) => (
+                <Task
+                  key={obj._id}
+                  taskObj={obj}
+                  indexNo={index}
+                  colors={colors}
+                  deleteTask={handleDeleteEvent}
+                  handleEditEvent={handleEditEvent}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
     </>

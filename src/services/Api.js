@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const URL = "https://todolistservices.herokuapp.com";
+// const URL = "https://todolistservices.herokuapp.com";
+const URL = "http://localhost:3001";
 
 export const AddTasks = async (data) => {
   try {
