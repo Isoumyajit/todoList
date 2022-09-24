@@ -11,7 +11,7 @@ import { AddTasks, deleteTheTask, getTasks, updateTask } from "../services/Api";
 import Modals from "./Modals";
 import Task from "./Task";
 import LoadingScreen from "./LoadingScreen";
-// import Pagination from "./Pagination";
+import ReactPaginate from "react-paginate";
 
 const TodoList = () => {
   const [status, setStatus] = React.useState("");
@@ -21,11 +21,10 @@ const TodoList = () => {
   const [taskList, setTaskList] = useState([]);
   const [completeTask, setCompletedTask] = useState([]);
   const [IncompleteTask, setIncompletedTask] = useState([]);
-  const [tasks, setTasks] = useState(taskList.slice(0, 50));
   const [pageNumber, setPageNumber] = useState(0);
-  const tasksPerPage = 12;
-  const pageVisited = pageNumber * tasksPerPage;
-
+  const tasksPerPage = 9;
+  let pageVisited = pageNumber * tasksPerPage;
+  const pageCount = Math.ceil(taskList.length / tasksPerPage);
   /**
    * It updates the task in the database and then updates the state of the component.
    * @param id - id of the task
@@ -156,6 +155,7 @@ const TodoList = () => {
 
   /* Filtering the tasks based on the status. */
   useEffect(() => {
+    setPageNumber(0);
     const showSelectedTasks = (target) => {
       let arr = [];
       allTask.forEach((task) => {
@@ -182,18 +182,23 @@ const TodoList = () => {
     setStatus(event.target.value);
   };
 
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   const paginateTask = (taskLists) => {
-    console.log(taskLists);
-    taskLists.map((obj, index) => (
-      <Task
-        key={obj._id}
-        taskObj={obj}
-        indexNo={index}
-        colors={colors}
-        deleteTask={handleDeleteEvent}
-        handleEditEvent={handleEditEvent}
-      />
-    ));
+    return taskLists
+      .slice(pageVisited, pageVisited + tasksPerPage)
+      .map((obj, index) => (
+        <Task
+          key={obj._id}
+          taskObj={obj}
+          indexNo={index}
+          colors={colors}
+          deleteTask={handleDeleteEvent}
+          handleEditEvent={handleEditEvent}
+        />
+      ));
   };
   /* Returning the JSX code. */
   return (
@@ -233,6 +238,22 @@ const TodoList = () => {
         <div className="container-tasks-main">
           <div className="task-container">
             {taskList.length < 1 ? <LoadingScreen /> : paginateTask(taskList)}
+          </div>
+          <div class="pagination-bar">
+            <ReactPaginate
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              breakLabel="..."
+              onPageChange={changePage}
+              pageRangeDisplayed={10}
+              pageCount={pageCount}
+              renderOnZeroPageCount={null}
+              containerClassName={"pagination-btn"}
+              previousLinkClassName={"previous-btn"}
+              nextLinkClassName={"next-btn"}
+              disabledClassName={"pagination-disabled"}
+              activeClassName={"pagination-active"}
+            />
           </div>
         </div>
       </div>
