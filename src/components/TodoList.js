@@ -1,3 +1,4 @@
+/* Importing the required modules. */
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormControl from "@mui/material/FormControl";
@@ -10,17 +11,26 @@ import { AddTasks, deleteTheTask, getTasks, updateTask } from "../services/Api";
 import Modals from "./Modals";
 import Task from "./Task";
 import LoadingScreen from "./LoadingScreen";
-
-// Import Section Ends here
+// import Pagination from "./Pagination";
 
 const TodoList = () => {
   const [status, setStatus] = React.useState("");
   const dropdownitems = ["All", "Completed", "Incomplete"];
   const [allTask, setAllTasks] = useState([]);
   const [modal, setModal] = useState(false);
-  // const [loading, setLoadingStatus] = useState(false);
   const [taskList, setTaskList] = useState([]);
+  const [completeTask, setCompletedTask] = useState([]);
+  const [IncompleteTask, setIncompletedTask] = useState([]);
+  const [tasks, setTasks] = useState(taskList.slice(0, 50));
+  const [pageNumber, setPageNumber] = useState(0);
+  const tasksPerPage = 12;
+  const pageVisited = pageNumber * tasksPerPage;
 
+  /**
+   * It updates the task in the database and then updates the state of the component.
+   * @param id - id of the task
+   * @param newtask - {
+   */
   const updateTasks = async (id, newtask) => {
     await updateTask([id, newtask, "Soumyajit"]);
 
@@ -40,6 +50,9 @@ const TodoList = () => {
     setTaskList(allTask);
   };
 
+  /**
+   * It gets all the tasks from the database and sets the state of the taskList to the array of tasks.
+   */
   const getAllTasks = async () => {
     setTaskList([]);
     let arr = [];
@@ -50,23 +63,34 @@ const TodoList = () => {
       setTaskList([...arr["data"]]);
       setAllTasks([...arr["data"]]);
     }
-    // else {
-    //   <LoadingScreen />;
-    // }
   };
+  /**
+   * If the task is deleted, then remove it from the task list.
+   * @param object - {taskObj: {_id: "5e9f8f8f8f8f8f8f8f8f8f8f", title: "Task 1", description: "Task 1
+   * description", status: "pending"}, indexNo: 0}
+   */
   const deleteTask = async (object) => {
     if (deleteTheTask([object.taskObj._id])) {
       setTaskList((p) => {
         let arr = [...p];
         arr.splice(object.indexNo, 1);
+        allTask.splice(object.indexNo, 1);
+        completeTask.splice(object.indexNo, 1);
+        IncompleteTask.splice(object.indexNo, 1);
         return arr;
       });
     }
   };
+  /**
+   * It takes a task object and a user ID, and then it adds the task to the database.
+   * @param taskObj - {
+   * @param userID - the user's ID
+   */
   const addTaskToDatabase = async (taskObj, userID) => {
     await AddTasks([taskObj, userID]);
     getAllTasks();
   };
+  /* An array of objects. Each object has three properties. */
   const colors = [
     {
       primaryColorContainer: "#9B59B6",
@@ -109,9 +133,18 @@ const TodoList = () => {
     setStatus("All");
   }, []);
 
+  /**
+   * It takes a new task as an argument and then calls the addTaskToDatabase function with the new task
+   * and the name of the user.
+   * @param newTask - The task that you want to add to the database.
+   */
   const saveTasks = (newTask) => {
     addTaskToDatabase(newTask, "Soumyajit");
   };
+  /**
+   * It takes an id as an argument and calls the deleteTask function with that id as an argument.
+   * @param id - the id of the task to be deleted
+   */
   const handleDeleteEvent = (id) => {
     deleteTask(id);
   };
@@ -121,6 +154,7 @@ const TodoList = () => {
     console.log(taskList);
   };
 
+  /* Filtering the tasks based on the status. */
   useEffect(() => {
     const showSelectedTasks = (target) => {
       let arr = [];
@@ -133,9 +167,13 @@ const TodoList = () => {
       });
       if (target === "Completed") {
         setTaskList(arr);
+        setCompletedTask(arr);
       } else if (target === "Incomplete") {
         setTaskList(arr);
-      } else setTaskList(allTask);
+        setIncompletedTask(arr);
+      } else {
+        setTaskList(allTask);
+      }
     };
     showSelectedTasks(status);
   }, [allTask, status]);
@@ -143,6 +181,23 @@ const TodoList = () => {
   const handleChangeDropwDown = (event) => {
     setStatus(event.target.value);
   };
+
+  const paginateTask = (taskLists) => {
+    console.log(taskLists);
+    taskLists.map((obj, index) => {
+      return (
+        <Task
+          key={obj._id}
+          taskObj={obj}
+          indexNo={index}
+          colors={colors}
+          deleteTask={handleDeleteEvent}
+          handleEditEvent={handleEditEvent}
+        />
+      );
+    });
+  };
+  /* Returning the JSX code. */
   return (
     <>
       <div className="upper-label">
@@ -179,20 +234,7 @@ const TodoList = () => {
         </div>
         <div className="container-tasks-main">
           <div className="task-container">
-            {taskList.length < 1 ? (
-              <LoadingScreen />
-            ) : (
-              taskList.map((obj, index) => (
-                <Task
-                  key={obj._id}
-                  taskObj={obj}
-                  indexNo={index}
-                  colors={colors}
-                  deleteTask={handleDeleteEvent}
-                  handleEditEvent={handleEditEvent}
-                />
-              ))
-            )}
+            {taskList.length < 1 ? <LoadingScreen /> : paginateTask(taskList)}
           </div>
         </div>
       </div>

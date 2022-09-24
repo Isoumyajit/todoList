@@ -73,6 +73,8 @@ const Form = (props) => {
       taskList["Name"] = taskHeading;
       taskList["Des"] = taskDescription;
       taskList["Status"] = status;
+      taskList["Time"] = time;
+      console.log(time);
       props.saveTheTask(taskList);
       props.toggle();
       console.log(status);
