@@ -185,16 +185,14 @@ const TodoList = () => {
   const paginateTask = (taskLists) => {
     console.log(taskLists);
     taskLists.map((obj, index) => {
-      return (
-        <Task
-          key={obj._id}
-          taskObj={obj}
-          indexNo={index}
-          colors={colors}
-          deleteTask={handleDeleteEvent}
-          handleEditEvent={handleEditEvent}
-        />
-      );
+      <Task
+        key={obj._id}
+        taskObj={obj}
+        indexNo={index}
+        colors={colors}
+        deleteTask={handleDeleteEvent}
+        handleEditEvent={handleEditEvent}
+      />;
     });
   };
   /* Returning the JSX code. */
