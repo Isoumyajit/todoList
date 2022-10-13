@@ -49,7 +49,7 @@ const Task = (props) => {
         <div
           className="card-top"
           style={{
-            'background-color':
+            backgroundColor:
               props.taskObj.taskStatus === 'Completed'
                 ? '#00e676'
                 : props.colors[props.indexNo % 5].primaryColor,
@@ -59,8 +59,8 @@ const Task = (props) => {
           <span
             className="card-header"
             style={{
-              'background-color': '#fff',
-              'border-radius': '5px',
+              backgroundColor: '#fff',
+              borderRadius: '5px',
             }}
           >
             {props.taskObj.taskName}
@@ -69,7 +69,7 @@ const Task = (props) => {
         <div
           className="task-description"
           style={{
-            'background-color': '#fff',
+            backgroundColor: '#fff',
           }}
         >
           <p>{props.taskObj.taskDescription}</p>

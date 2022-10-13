@@ -1,29 +1,29 @@
-import React from "react";
-import "../CSS/loader-screen.css";
+import React from 'react'
+import '../CSS/loader-screen.css'
 
 const LoadingScreen = () => {
   return (
     <div id="loading">
-      <div class="boxes">
-        <div class="box">
+      <div className="boxes">
+        <div className="box">
           <div></div>
           <div></div>
           <div></div>
           <div></div>
         </div>
-        <div class="box">
+        <div className="box">
           <div></div>
           <div></div>
           <div></div>
           <div></div>
         </div>
-        <div class="box">
+        <div className="box">
           <div></div>
           <div></div>
           <div></div>
           <div></div>
         </div>
-        <div class="box">
+        <div className="box">
           <div></div>
           <div></div>
           <div></div>
@@ -31,7 +31,7 @@ const LoadingScreen = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoadingScreen;
+export default LoadingScreen
