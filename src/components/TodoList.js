@@ -80,6 +80,8 @@ const TodoList = () => {
       return arr
     })
     await deleteTheTask([object.taskObj._id])
+    completeTask.splice(object.taskObj._id, 1)
+    IncompleteTask.splice(object.taskObj._id, 1)
   }
   /**
    * It takes a task object and a user ID, and then it adds the task to the database.
