@@ -71,17 +71,26 @@ const TodoList = () => {
   const deleteTask = async (object) => {
     setAllTasks((p) => {
       let arr = [...p]
-      arr.splice(object.taskObj._id, 1)
+      arr = arr.filter(x=>{
+        return x._id !== object.taskObj._id
+      })
       return arr
     })
     setTaskList((p) => {
       let arr = [...p]
-      arr.splice(object.taskObj._id, 1)
+      arr = arr.filter(x=>{
+        return x._id !== object.taskObj._id
+      })
+      return arr
+    })
+    setCompletedTask((p) => {
+      let arr = [...p]
+      arr = arr.filter(x=>{
+        return x._id !== object.taskObj._id
+      })
       return arr
     })
     await deleteTheTask([object.taskObj._id])
-    completeTask.splice(object.taskObj._id, 1)
-    IncompleteTask.splice(object.taskObj._id, 1)
   }
   /**
    * It takes a task object and a user ID, and then it adds the task to the database.
