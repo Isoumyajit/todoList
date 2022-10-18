@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
 
 * {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
@@ -126,6 +126,17 @@
   background: rgb(46, 42, 42);
   font-weight: bold;
   color: white;
+}
+.footer-links {
+  margin-top: 30px;
+  display: inline-flex;
+  padding: 10px;
+}
+.footer-links a {
+  margin-left: 10px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: rgb(206, 206, 206);
 }
 
 /* 

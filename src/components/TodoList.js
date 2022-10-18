@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* Importing the required modules. */
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,6 +20,7 @@ const TodoList = () => {
   const [allTask, setAllTasks] = useState([])
   const [modal, setModal] = useState(false)
   const [taskList, setTaskList] = useState([])
+  // eslint-disable-next-line no-unused-vars
   const [completeTask, setCompletedTask] = useState([])
   const [IncompleteTask, setIncompletedTask] = useState([])
   const [pageNumber, setPageNumber] = useState(0)
@@ -71,21 +73,21 @@ const TodoList = () => {
   const deleteTask = async (object) => {
     setAllTasks((p) => {
       let arr = [...p]
-      arr = arr.filter(x=>{
+      arr = arr.filter((x) => {
         return x._id !== object.taskObj._id
       })
       return arr
     })
     setTaskList((p) => {
       let arr = [...p]
-      arr = arr.filter(x=>{
+      arr = arr.filter((x) => {
         return x._id !== object.taskObj._id
       })
       return arr
     })
     setCompletedTask((p) => {
       let arr = [...p]
-      arr = arr.filter(x=>{
+      arr = arr.filter((x) => {
         return x._id !== object.taskObj._id
       })
       return arr
