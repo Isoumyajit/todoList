@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
-
+import Button from 'react-bootstrap/esm/Button'
 export class header extends Component {
   render() {
     return (
@@ -18,6 +18,9 @@ export class header extends Component {
               />{' '}
               Todo List Maker
             </Navbar.Brand>
+            <Button style={{ borderRadius: '50px', backgroundColor: 'green' }}>
+              Sign Out
+            </Button>
           </Container>
         </Navbar>
       </>
