@@ -8,13 +8,14 @@ import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { getStatusList } from "../services/TaskFilter";
 
-function EditModal(props) {
+function EditModal({ index, task, editEvent, editToggle, editModal }) {
+  const [statusList, setStatusList] = useState(getStatusList());
   const [taskHeading, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [errors, setErrors] = useState(false);
   const [status, setStatus] = useState("");
-  const statusList = ["Completed", "Incomplete"];
   const [time, setTime] = useState(null);
 
   const validateForm = () => {
@@ -33,8 +34,8 @@ function EditModal(props) {
       newTask["taskName"] = taskHeading;
       newTask["taskDescription"] = taskDescription;
       newTask["taskStatus"] = status;
-      props.editTask(props.taskObj._id, newTask);
-      props.toggle();
+      editEvent(task._id, newTask);
+      editToggle();
     }
   };
   // ** Here this Arrow funtion is used to handdle the change events for the TaskHeading field
@@ -54,15 +55,11 @@ function EditModal(props) {
   };
 
   useEffect(() => {
-    setTaskTitle(props.taskObj.taskName);
-    setTaskDescription(props.taskObj.taskDescription);
-    if (typeof props.taskObj.taskStatus === "undefined") setStatus("");
-    else setStatus(props.taskObj.taskStatus);
-  }, [
-    props.taskObj.taskStatus,
-    props.taskObj.taskDescription,
-    props.taskObj.taskName,
-  ]);
+    setTaskTitle(task.taskName);
+    setTaskDescription(task.taskDescription);
+    if (typeof task.taskStatus === "undefined") setStatus("");
+    else setStatus(task.taskStatus);
+  }, [task.taskStatus, task.taskDescription, task.taskName]);
 
   return (
     <>
@@ -131,8 +128,10 @@ function EditModal(props) {
                 label="Status"
                 onChange={handleChangeStatusDropDown}
               >
-                {statusList.map((st) => (
-                  <MenuItem value={st}>{st}</MenuItem>
+                {statusList.map((st, index) => (
+                  <MenuItem key={index} value={st}>
+                    {st}
+                  </MenuItem>
                 ))}
               </Select>
               <LocalizationProvider dateAdapter={AdapterDayjs}>

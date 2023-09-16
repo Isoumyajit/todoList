@@ -26,8 +26,10 @@ function Modals(props) {
           <EditModal
             index={props.index}
             editTask={props.editEvent}
-            toggle={props.editToggle}
-            taskObj={props.taskObj}
+            editToggle={props.editToggle}
+            task={props.task}
+            editModal={props.editModal}
+            editEvent={props.editEvent}
           />
         </ModalBody>
         <ModalFooter>
@@ -36,7 +38,7 @@ function Modals(props) {
           </Button>
         </ModalFooter>
       </Modal>
-    )
+    );
 }
 
 export default Modals

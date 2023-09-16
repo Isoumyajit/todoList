@@ -1,6 +1,6 @@
 import axios from "axios";
-const URL = "https://todoservices.vercel.app";
-// const URL = "http://localhost:3001";
+// const URL = "https://todoservices.vercel.app";
+const URL = "http://localhost:3001";
 
 export const AddTasks = async (data) => {
   try {
@@ -20,6 +20,7 @@ export const getTasks = async () => {
 
 export const updateTask = async (data) => {
   try {
+    console.log(data);
     return await axios.post(`${URL}/update`, data);
   } catch (error) {
     console.log("Error during Update API call", error);

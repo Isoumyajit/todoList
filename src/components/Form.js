@@ -8,53 +8,31 @@ import TextField from '@mui/material/TextField'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { TimePicker } from '@mui/x-date-pickers/TimePicker'
+import { getStatusList } from "../services/TaskFilter";
 
 const Form = (props) => {
-  const [taskHeading, setTaskTitle] = useState('')
-  const [taskDescription, setTaskDescription] = useState('')
-  const [error, setError] = useState(false)
-  const statusList = ['Completed', 'Incomplete']
-  const [status, setStatus] = useState('Incomplete')
-  const [time, setTime] = useState(null)
-
-  // TODO : Trying to make a input object to make it simple playing with inputs
-  // const [values, setFormValues] = useState({
-  //   taskName: "",
-  //   description: "",
-  // });
-
-  // const inputs = [
-  //   {
-  //     id: 1,
-  //     name: "taskName",
-  //     type: "text",
-  //     placeholder: "Task Name",
-  //     label: "TaskName",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "taskDescription",
-  //     type: "text",
-  //     placeholder: "Describe the task",
-  //     label: "Task Description",
-  //   },
-  // ];
+  const [taskHeading, setTaskTitle] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [error, setError] = useState(false);
+  const statusList = getStatusList();
+  const [status, setStatus] = useState("Incomplete");
+  const [time, setTime] = useState(null);
 
   // ** Here this Arrow funtion is used to handdle the change events for the TaskHeading field
   const handleChangeTask = (event) => {
-    const taskName = event.target.value
-    setTaskTitle(taskName)
-  }
+    const taskName = event.target.value;
+    setTaskTitle(taskName);
+  };
 
   // ** Here this Arrow funtion is used to handdle the change events for the TaskDescrption Field
   const handleChangeTaskDescription = (event) => {
-    const descr = event.target.value
-    setTaskDescription(descr)
-  }
+    const descr = event.target.value;
+    setTaskDescription(descr);
+  };
 
   const handleChangeStatusDropDown = (event) => {
-    setStatus(event.target.value)
-  }
+    setStatus(event.target.value);
+  };
 
   const validateData = () => {
     if (
@@ -62,23 +40,23 @@ const Form = (props) => {
       taskDescription.length === 0 ||
       status.length === 0
     ) {
-      setError(true)
-    } else return true
-  }
+      setError(true);
+    } else return true;
+  };
   const handleSave = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (validateData()) {
-      let taskList = {}
-      taskList['Name'] = taskHeading
-      taskList['Des'] = taskDescription
-      taskList['Status'] = status
-      taskList['Time'] = time
-      props.saveTheTask(taskList)
-      props.toggle()
-      console.log(status)
+      let taskList = {};
+      taskList["Name"] = taskHeading;
+      taskList["Des"] = taskDescription;
+      taskList["Status"] = status;
+      taskList["Time"] = time;
+      props.saveTheTask(taskList);
+      props.toggle();
+      console.log(status);
     }
-  }
+  };
 
   return (
     <>
@@ -101,7 +79,7 @@ const Form = (props) => {
                 <label>Task Title cann't be blank </label>
               </div>
             ) : (
-              ''
+              ""
             )}
           </div>
           <div class="mb-3">
@@ -118,11 +96,11 @@ const Form = (props) => {
             {error && taskDescription.length <= 15 ? (
               <div className="formErrors">
                 <label>
-                  Task Description cann't be less than 15 characters{' '}
+                  Task Description cann't be less than 15 characters{" "}
                 </label>
               </div>
             ) : (
-              ''
+              ""
             )}
           </div>
           <div class="mb-3">
@@ -131,9 +109,9 @@ const Form = (props) => {
               variant="standard"
               sx={{ m: 1, minWidth: 110 }}
               style={{
-                display: 'flex',
-                'flex-direction': 'row',
-                justifyContent: 'space-between',
+                display: "flex",
+                "flex-direction": "row",
+                justifyContent: "space-between",
               }}
             >
               <InputLabel id="demo-simple-select-standard-label">
@@ -155,7 +133,7 @@ const Form = (props) => {
                   label="Select Time"
                   value={time}
                   onChange={(newValue) => {
-                    setTime(newValue)
+                    setTime(newValue);
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
@@ -166,7 +144,7 @@ const Form = (props) => {
                 <label>Status cann't be empty </label>
               </div>
             ) : (
-              ''
+              ""
             )}
           </div>
 
@@ -178,7 +156,7 @@ const Form = (props) => {
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Form

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-// import { faPlus } from "fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modals from "../Modals";
-export const DashboardFunctions = ({ filterOption, modal }) => {
-  const [filterState, setFilterState] = useState("");
+import React, { useState, useEffect } from "react";
+export const DashboardFunctions = ({ filterOption, modal, selectStatus }) => {
   const [selectedButton, setSelectedButton] = useState(0);
-
+  useEffect(() => {
+    selectStatus((prev) => filterOption[selectedButton]);
+  }, [filterOption, selectStatus, selectedButton]);
   const handleClick = (buttonIndex) => {
     setSelectedButton((prev) => buttonIndex);
+    console.log(filterOption[selectedButton]);
+    selectStatus((prev) => filterOption[selectedButton]);
   };
   return (
     <div className="dashboard-header">
-      <div className="tasks">{/* <Modals /> */}</div>
+      <div className="tasks"></div>
       <div className="w-full bg-yellow-100 p-2 flex flex-row gap-4 items-center justify-center ">
         {filterOption.map((option, index) => (
           <div key={index}>
