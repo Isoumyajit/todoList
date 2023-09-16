@@ -15,16 +15,17 @@ export class header extends Component {
                 width="30"
                 height="30"
                 className="d-inline-block align-top"
-              />{' '}
+              />{" "}
               Todo List Maker
             </Navbar.Brand>
-            <Button style={{ borderRadius: '50px', backgroundColor: 'green' }}>
-              Sign Out
-            </Button>
+            <button className=" bg-yellow-200 items-center pl-2 pr-2 pt-1 pb-1 rounded-lg hover:scale-105 duration-200 hover:bg-yellow-300">
+              {" "}
+              Sign In
+            </button>
           </Container>
         </Navbar>
       </>
-    )
+    );
   }
 }
 

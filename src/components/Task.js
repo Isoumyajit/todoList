@@ -1,117 +1,78 @@
-import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import { faCheckDouble } from '@fortawesome/free-solid-svg-icons'
-import Modals from './Modals'
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCheckDouble } from "@fortawesome/free-solid-svg-icons";
+import Modals from "./Modals";
 
-const Task = (props) => {
-  const [editmodal, seteditModal] = useState(false)
-
+const Task = ({ task, indexNo, colors, deleteTask, handleEditEvent }) => {
+  const [editmodal, seteditModal] = useState(false);
+  console.log(task, indexNo, colors);
   const toggle = () => {
-    seteditModal(!editmodal)
-  }
-  const handleDelete = () => {
-    console.log(props.taskObj)
-    props.deleteTask(props)
-  }
+    seteditModal(!editmodal);
+  };
   return (
     <>
       <div
-        className="note mr-5"
+        className="task-object w-1/2 bg-gray-100 shadow-sm rounded-md p-2 flex flex-row justify-between"
         style={{
-          border: '2px solid' + props.colors[props.indexNo % 5].primaryColor,
+          border: "2px solid" + colors[indexNo % 5].primaryColor,
+          borderLeft: "5px solid" + colors[indexNo % 5].primaryColor,
           backgroundColor:
-            props.taskObj.taskStatus === 'Completed'
-              ? '#4f5b62'
-              : props.colors[props.indexNo % 5].primaryColorContainer,
+            task.taskStatus === "Completed"
+              ? "#4f5b62"
+              : colors[indexNo % 5].primaryColorContainer,
           textDecoration:
-            props.taskObj.taskStatus === 'Completed' ? 'line-through' : 'none',
-          filter:
-            props.taskObj.taskStatus === 'Completed'
-              ? 'blur(0.2px)'
-              : 'blur(0)',
+            task.taskStatus === "Completed" ? "line-through" : "none",
+          filter: task.taskStatus === "Completed" ? "blur(0.2px)" : "blur(0)",
         }}
       >
-        {props.taskObj.taskStatus === 'Completed' ? (
+        {task.taskStatus === "Completed" ? (
           <div className="green-tick">
             <FontAwesomeIcon
               icon={faCheckDouble}
               size="lg"
-              style={{ color: '#00B8A3', padding: '5px !important' }}
+              style={{ color: "#00B8A3", padding: "5px !important" }}
             />
             <div className="completeMessageDivStyle">
-              <label style={{ color: '#fff' }}> Completed</label>{' '}
+              <label style={{ color: "#fff" }}> Completed</label>{" "}
             </div>
           </div>
         ) : (
-          ''
+          ""
         )}
-        <div
-          className="card-top"
-          style={{
-            backgroundColor:
-              props.taskObj.taskStatus === 'Completed'
-                ? '#00e676'
-                : props.colors[props.indexNo % 5].primaryColor,
-          }}
-        ></div>
-        <div className="task-heading">
-          <span
-            className="card-header"
-            style={{
-              backgroundColor: '#fff',
-              borderRadius: '5px',
-            }}
-          >
-            {props.taskObj.taskName}
-          </span>
-        </div>
-        <div
-          className="task-description"
-          style={{
-            backgroundColor: '#fff',
-          }}
-        >
-          <p>{props.taskObj.taskDescription}</p>
-        </div>
-        <div className="notes-footer">
-          <div className="functional-buttons">
-            <div className="edit-button">
-              <FontAwesomeIcon
-                icon={faEdit}
-                size="lg"
-                className="edit-button mr-3"
-                cursor="pointer"
-                style={{
-                  color: props.colors[props.indexNo % 5].primaryColor,
-                }}
-                onClick={() => seteditModal(true)}
-              />
-            </div>
-            <div className="delete-button">
-              <FontAwesomeIcon
-                icon={faTrashCan}
-                size="lg"
-                className="delete-button mr-3"
-                style={{
-                  color: props.colors[props.indexNo % 5].primaryColor,
-                }}
-                cursor="pointer"
-                onClick={handleDelete}
-              />
-            </div>
+        <div className=" task-body m-2 rounded-md">
+          <div className="task-heading">
+            <span className="card-header text-lg font-semibold">
+              {task.taskName}
+            </span>
           </div>
+        </div>
+        <div className="functional-btn flex gap-2 items-center">
+          <button
+            type="button"
+            className="bg-white p-2 shadow-md hover:scale-105 duration-200 rounded-md"
+            onClick={() => seteditModal(true)}
+          >
+            <FontAwesomeIcon icon={faCheck} />
+          </button>
+          <button
+            type="button"
+            className="bg-white p-2 shadow-md hover:scale-105 duration-200 rounded-md"
+            onClick={() => deleteTask(task)}
+          >
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
         </div>
       </div>
       <Modals
         editModal={editmodal}
         editToggle={toggle}
-        index={props.indexNo}
-        taskObj={props.taskObj}
-        editEvent={props.handleEditEvent}
+        index={indexNo}
+        taskObj={task}
+        editEvent={handleEditEvent}
       />
     </>
-  )
-}
+  );
+};
 
-export default Task
+export default Task;
